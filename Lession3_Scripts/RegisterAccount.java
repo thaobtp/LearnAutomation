@@ -2,6 +2,7 @@ package Lession3SeleniumWebPackage;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -60,11 +61,7 @@ public class RegisterAccount {
 			// check register successful
 			// get info message
 			String currentPage = common.getCurrentPage();
-			boolean isRegisterSuccess = common.CompareString(currentPage,
-					accountPage.accountInfoUrl);
-			if (isRegisterSuccess) {
-				common.printLn("Đăng ký thành công:Thank you for registering with Main Website Store");
-			}
+			Assert.assertEquals(currentPage, accountPage.accountInfoUrl);
 		} catch (Exception e) {
 			common.printLn(e.toString());
 		}
@@ -80,12 +77,8 @@ public class RegisterAccount {
 					registerPage.confirmPassWord);
 
 			// Check register fail
-			boolean isRegisterFail = common.CompareString(
-					registerPage.registerFail(),
-					registerPage.errorExpectedMessage);
-			if (isRegisterFail) {
-				common.printLn("Đăng ký không thành công");
-			}
+			String errorMessage = registerPage.registerFail();
+			Assert.assertEquals(errorMessage, registerPage.errorExpectedMessage);			
 		} catch (Exception e) {
 			common.printLn(e.toString());
 		}

@@ -2,6 +2,7 @@ package Lession3SeleniumWebPackage;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -49,14 +50,8 @@ public class Login_Logout {
 			String pageTitle = loginPage.getMessageLoginSuccess();
 
 			// Verify login successful
-			boolean isSuccessMessage = common.CompareString(pageTitle,
-					loginPage.expectedPageTitleMessage);
-			boolean isSuccessLoginPage = common.CompareString(currentPage,
-					accountPage.accountUrl);
-
-			if (isSuccessMessage && isSuccessLoginPage) {
-				common.printLn("Login thành công");
-			}
+			Assert.assertEquals(pageTitle.toLowerCase(), loginPage.expectedPageTitleMessage.toLowerCase());
+			Assert.assertEquals(currentPage, accountPage.accountUrl);
 		} catch (Exception e) {
 			common.printLn(e.toString());
 		}
@@ -79,14 +74,8 @@ public class Login_Logout {
 			String errorMessage = loginPage.getMessageLoginFail();
 
 			// Verify login fail
-			boolean isErrorMessage = common.CompareString(errorMessage,
-					loginPage.expectedErrorMessage);
-			boolean isFailLoginPage = common.CompareString(currentPage,
-					loginPage.loginUrl);
-
-			if (isErrorMessage && isFailLoginPage) {
-				common.printLn("Login fail");
-			}
+			Assert.assertEquals(errorMessage.toLowerCase(), loginPage.expectedErrorMessage.toLowerCase());
+			Assert.assertEquals(currentPage, loginPage.loginUrl);
 		} catch (Exception e) {
 			common.printLn(e.toString());
 		}

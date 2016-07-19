@@ -2,6 +2,7 @@ package Lession3SeleniumWebPackage;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -51,14 +52,8 @@ public class Shopping {
 			// get info message
 			String currentPage = driver.getCurrentUrl();
 			String pageTitle = common.getText(CheckoutPage.pageTitleLocator);
-			// Verify order successful
-			if (accountPage.equalsIgnoreCase(currentPage)
-					&& pageTitle
-							.equalsIgnoreCase("Your order has been received.")) {
-				common.printLn("Đặt hàng thành công");
-			} else {
-				common.printLn("Đặt hàng fail");
-			}
+			// Verify order successful			
+			Assert.assertEquals(currentPage, pageTitle);
 		} catch (Exception e) {
 			common.printLn(e.toString());
 		}
